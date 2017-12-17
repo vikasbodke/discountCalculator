@@ -21,8 +21,10 @@ import java.util.HashSet;
 import java.util.List;
 
 import static com.products.discounts.models.DiscountByType.PERCENTAGE;
+import static java.util.Collections.singleton;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -42,14 +44,14 @@ public class CategoryBrandDiscountScenario {
         checkoutMgr = new CheckoutManager(discountMgr, productMgr);
 
         //mock mappings
-        when(productMgr.get(ArgumentMatchers.eq(1L))).thenReturn(product_1);
-        when(productMgr.get(ArgumentMatchers.eq(2L))).thenReturn(product_2);
+        when(productMgr.get(eq(1L))).thenReturn(product_1);
+        when(productMgr.get(eq(2L))).thenReturn(product_2);
 
         Discount brandDiscount = new BrandDiscount("Aiddas", 20.0, PERCENTAGE);
         Discount categoryDiscount = new CategoryDiscount("Footwear", 50.0, PERCENTAGE, false);
 
-        when(discountMgr.getApplicableDiscounts(ArgumentMatchers.eq(product_1), any())).thenReturn(Collections.singleton(brandDiscount));
-        when(discountMgr.getApplicableDiscounts(ArgumentMatchers.eq(product_2), any())).thenReturn(Collections.singleton(categoryDiscount));
+        when(discountMgr.getApplicableDiscounts(eq(product_1), any())).thenReturn(singleton(brandDiscount));
+        when(discountMgr.getApplicableDiscounts(eq(product_2), any())).thenReturn(singleton(categoryDiscount));
     }
 
     @Test

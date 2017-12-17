@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static java.util.Collections.emptySet;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -36,7 +37,7 @@ public class NoDiscountScenario {
 
         //mock mappings
         when(productMgr.get(any())).thenReturn(product);
-        when(discountMgr.getApplicableDiscounts(any(), any())).thenReturn(Collections.emptySet());
+        when(discountMgr.getApplicableDiscounts(any(), any())).thenReturn(emptySet());
     }
 
 

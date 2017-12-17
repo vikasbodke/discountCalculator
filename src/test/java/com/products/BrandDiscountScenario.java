@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static java.util.Collections.singleton;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -39,7 +40,7 @@ public class BrandDiscountScenario {
         when(productMgr.get(any())).thenReturn(product);
 
         Discount brandDiscount = new BrandDiscount("Adidas", 20.0, DiscountByType.PERCENTAGE);
-        when(discountMgr.getApplicableDiscounts(any(), any())).thenReturn(Collections.singleton(brandDiscount));
+        when(discountMgr.getApplicableDiscounts(any(), any())).thenReturn(singleton(brandDiscount));
     }
 
 
@@ -59,7 +60,7 @@ public class BrandDiscountScenario {
     @Test
     public void test_SingleCart() {
         Item item = new Item(products.get(0).getProductId(), 1L);
-        Cart cartWithOneItem = new Cart(Collections.singleton(item));
+        Cart cartWithOneItem = new Cart(singleton(item));
         double discountedPrice = checkoutMgr.calculateTotalCost(cartWithOneItem);
         assertEquals((long) discountedPrice, products.get(0).getPrice() * .8);
     }

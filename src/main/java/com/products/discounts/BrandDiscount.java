@@ -5,6 +5,8 @@ import com.products.discounts.models.DiscountByType;
 import com.products.discounts.models.DiscountType;
 import com.products.inventory.models.Product;
 
+import static com.products.discounts.models.DiscountType.BRAND;
+
 /**
  * @author vikas
  */
@@ -21,12 +23,12 @@ public class BrandDiscount implements Discount {
 
     @Override
     public DiscountType getDiscountType() {
-        return DiscountType.BRAND;
+        return BRAND;
     }
 
     @Override
     public DiscountByType getDiscountByType() {
-        return this.discountByType;
+        return discountByType;
     }
 
     @Override

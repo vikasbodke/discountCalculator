@@ -1,15 +1,9 @@
 package com.products.discounts;
 
-import com.products.categorys.CategoryManager;
-import com.products.categorys.models.Category;
 import com.products.discounts.models.Discount;
 import com.products.discounts.models.DiscountByType;
 import com.products.discounts.models.DiscountType;
 import com.products.inventory.models.Product;
-
-import java.util.Map;
-import java.util.OptionalDouble;
-import java.util.Set;
 
 import static com.products.discounts.models.DiscountType.CATEGORY;
 
@@ -49,7 +43,7 @@ public class CategoryDiscount implements Discount {
 
     @Override
     public DiscountByType getDiscountByType() {
-        return this.discountByType;
+        return discountByType;
     }
 
     @Override
@@ -63,8 +57,8 @@ public class CategoryDiscount implements Discount {
 
     }
 
-    protected void setMaxHierarchyDiscount(Double maxHierarchyDiscount) {
-        this.maxHierarchyDiscount = maxHierarchyDiscount;
+    public Double getMaxHierarchyDiscount() {
+        return maxHierarchyDiscount;
     }
 
     public String getCategory() {
@@ -84,31 +78,7 @@ public class CategoryDiscount implements Discount {
         return getCategory();
     }
 
-    /**
-     * Logic to pre-calculate the discount in case this category is eligible for inheriting the ancestors discount
-     *
-     * @param categoryMgr       - to trace the ancestory
-     * @param categoryDiscounts - to get the discount for a given category
-     */
-    public void init(CategoryManager categoryMgr, Map<String, Set<Discount>> categoryDiscounts) {
-        if (!canInheritFromAncestor) {
-            return;
-        }
-
-        String currCat = this.getCategory();
-        double currMaxDiscount = getCategoryDiscount();
-        while (currCat != null) {
-            final Set<Discount> discounts = categoryDiscounts.get(currCat);
-            if (discounts != null) {
-                OptionalDouble maxDiscount = discounts.stream()
-                        .map(discount -> (CategoryDiscount) discount)
-                        .mapToDouble(CategoryDiscount::getCategoryDiscount).max();
-                currMaxDiscount = Math.max(currMaxDiscount, maxDiscount.orElse(0.0));
-            }
-            Category cat = categoryMgr.get(currCat);
-            currCat = cat.getParent() != null ? cat.getParent().getName() : null;
-        }
-
-        maxHierarchyDiscount = currMaxDiscount;
+    protected void setMaxHierarchyDiscount(double maxHierarchyDiscount) {
+        this.maxHierarchyDiscount = maxHierarchyDiscount;
     }
 }

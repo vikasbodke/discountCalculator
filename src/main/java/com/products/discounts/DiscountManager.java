@@ -71,14 +71,14 @@ public class DiscountManager {
      * Pre-calculate the discount for all categories-discount
      * This can be a background task, provided a lock is obtained on the category discounts
      */
-    private void refreshAllCategoriesDiscount() {
+    protected void refreshAllCategoriesDiscount() {
         Map<String, Set<Discount>> categoryDiscounts = discounts.get(CATEGORY);
         //iterate over all the category discounts, filter & calculate the max discount
         categoryDiscounts.values()
                 .forEach(set -> set.stream()
                         .map(discount -> (CategoryDiscount) discount)
                         .filter(CategoryDiscount::canInheritFromAncestor)
-                        .forEach(cat -> cat.init(categoryMgr, categoryDiscounts)));
+                        .forEach(cat -> CategoryHierarchyDiscountUtil.calculateMaxDiscount(cat,categoryMgr, categoryDiscounts)));
     }
 
 

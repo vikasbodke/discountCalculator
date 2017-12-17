@@ -23,10 +23,6 @@ public class CategoryManager {
         return this;
     }
 
-    public CategoryManager update(final Category category) {
-        categories.put(category.getName(), category);
-        return this;
-    }
 
     public CategoryManager remove(final Category category) {
         categories.remove(category.getName());

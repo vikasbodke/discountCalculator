@@ -1,5 +1,7 @@
 package com.products.inventory.models;
 
+import java.util.Objects;
+
 /**
  * Class representing a product entity
  *
@@ -40,5 +42,22 @@ public class Product {
 
     public Long getPrice() {
         return price;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Product)) return false;
+        Product product = (Product) o;
+        return Objects.equals(getProductId(), product.getProductId()) &&
+                Objects.equals(getBrandName(), product.getBrandName()) &&
+                Objects.equals(getCategory(), product.getCategory()) &&
+                Objects.equals(getPrice(), product.getPrice());
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(getProductId(), getBrandName(), getCategory(), getPrice());
     }
 }

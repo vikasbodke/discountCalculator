@@ -1,6 +1,7 @@
 package com.products.checkouts.models;
 
 import java.util.Collection;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -39,5 +40,19 @@ public class Cart {
 
     public Set<Item> getItems() {
         return this.items;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Cart)) return false;
+        Cart cart = (Cart) o;
+        return Objects.equals(getItems(), cart.getItems());
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(getItems());
     }
 }
